@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamborghini Oleodinamica</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="foto/Lamborghini_Oleodinamica_V2.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    
+
+</head>
+
+<script type="text/javascript">
+  var _iub = _iub || [];
+  _iub.csConfiguration = {"siteId":4756604,"cookiePolicyId":25839529};
+  _iub.csLangConfiguration = {"it":{"cookiePolicyId":25839529},"en-GB":{"cookiePolicyId":84543427}};
+  </script>
+  <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4756604.js"></script>
+  <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+
+<body>
+
+  <img src="foto/Lamborghini_Oleodinamica_V2.png" alt="logo lamborghini oleodinamica">
+
+  <h1>Coming soon</h1>
+
+  <a class="email"
+   href="mailto:info@lamborghini-oleodinamica.com?subject=Richiesta%20informazioni&body=Buongiorno%2C%0A%0Avorrei%20ricevere%20maggiori%20informazioni%20su%3A%0A%0A%0ANome%3A%0AAzienda%3A%0ATelefono%3A">
+  info@lamborghini-oleodinamica.com
+</a>
+
+  <div class="globe-wrap">
+    <canvas id="globe" width="500" height="500"></canvas>
+  </div>
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="video/Blue Light Animation.mp4" type="video/mp4">
+  </video>
+
+
+    <!--  <div class="card">
+     <h2 class="us">Contact us</h2>
+    <p></p>
+    <a class="email" href="mailto:">info@lamborghini-oleodinamica.com</a></div>
+
+    
+
+    <form class="waitlist" action="/invia" method="post"> 
+      
+      <fieldset class="tipo">
+        <legend class="sr-only">Sei un privato o un'attività?</legend>
+      
+        <input type="radio" id="tipo-privato" name="tipo" value="privato" required>
+        <label for="tipo-privato">Privato</label>
+      
+        <input type="radio" id="tipo-azienda" name="tipo" value="azienda">
+        <label for="tipo-azienda">Attività</label>
+      </fieldset>
+
+      <div class="settore" hidden>
+        <label for="settore" class="sr-only">Settore</label>
+        <select id="settore" name="settore">
+          <option value="">Settore di attività</option>
+          <option value="agricoltura">Agricoltura</option>
+          <option value="edilizia">Edilizia</option>
+          <option value="industria">Industria</option>
+          <option value="altro">Altro</option>
+        </select>
+      </div>
+
+        <label for="email" class="sr-only">Email</label>
+
+        <input id="email" type="email" name="email"  placeholder="Send email" autocomplete="email" required>
+        <button id="button" type="submit">Join Waitlist</button> 
+    </form>
+ </div> -->
+ 
+
+<footer class="footer">©Lamborghini Oleodinamica 2026 
+  <div class=".footer-links">
+  <a class="privacy-policy" href="https://www.iubenda.com/privacy-policy/25839529">Privacy&Policy</a>
+  <a class="Cookie-policy" href="https://www.iubenda.com/privacy-policy/25839529/cookie-policy">Cookie-policy</a> </div>
+
+
+</footer>
+
+
+
+<script>
+
+  // PASSO 1: la tela e il pennello
+  const canvas = document.getElementById('globe');
+   const ctx = canvas.getContext('2d');
+ 
+   const N = 15000;
+   const points = [];
+   let angle = 0;
+ 
+   const mask = new Image();
+   mask.src = 'foto/world-mask.png';
+ 
+   mask.onerror = () => console.log('ERRORE: immagine non trovata');
+ 
+   // Tutto parte solo quando la mappa è caricata
+   mask.onload = () => {
+     console.log('mappa caricata:', mask.width, 'x', mask.height);
+     // Mappa disegnata su una canvas invisibile per leggerne i pixel
+     const off = document.createElement('canvas');
+     off.width = mask.width;
+     off.height = mask.height;
+     const offCtx = off.getContext('2d');
+     offCtx.drawImage(mask, 0, 0);
+     const pixels = offCtx.getImageData(0, 0, off.width, off.height).data;
+ 
+     for (let i = 0; i < N; i++) {
+       // PASSO 2: altezza e raggio della "fetta"
+       const y = 1 - (i / (N - 1)) * 2;
+       const r = Math.sqrt(1 - y * y);
+ 
+       // PASSO 3: posizione lungo il cerchio (angolo d'oro)
+       const theta = i * Math.PI * (3 - Math.sqrt(5));
+       const x = Math.cos(theta) * r;
+       const z = Math.sin(theta) * r;
+ 
+       // PASSO 4: da 3D a latitudine e longitudine
+       const lat = Math.asin(y);
+       const lon = Math.atan2(z, x);
+ 
+       // PASSO 5: da lat/lon a pixel della mappa
+       const px = Math.floor((lon + Math.PI) / (2 * Math.PI) * off.width);
+       const py = Math.floor((0.5 - lat / Math.PI) * off.height);
+ 
+       // PASSO 6: leggo il colore, se è chiaro è terra
+       const index = (py * off.width + px) * 4;
+       if (pixels[index] > 128) {
+         points.push({ x, y, z });
+       }
+     }
+     console.log('punti sulla terra:', points.length);
+     draw();
+   };
+   
+   function draw() {
+     
+     ctx.clearRect(0, 0, canvas.width, canvas.height);
+     const R = canvas.width * 0.45;
+     const cx = canvas.width / 2;
+     const cy = canvas.height / 2;
+     const cos = Math.cos(angle);
+     const sin = Math.sin(angle);
+ 
+     // corpo del globo: disco scuro semitrasparente che vela ciò che sta dietro
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);   // cerchio: centro, raggio, da 0 a 360°
+    ctx.fill();
+
+    ctx.fillStyle = '#fff';
+ 
+     for (const p of points) {
+       // PASSO 7: rotazione (y non cambia, come una giostra)
+       const x = p.x * cos - p.z * sin;
+       const z = p.x * sin + p.z * cos;
+ 
+       // PASSO 8: salta i punti dietro, opacità in base alla profondità, disegna
+       if (z < 0) continue;
+       ctx.globalAlpha = z;
+       ctx.fillRect(cx + x * R, cy - p.y * R, 1.5, 1.5);
+     }
+ 
+     angle += 0.003;
+     requestAnimationFrame(draw);
+   }
+ 
+ 
+ 
+  /* const azienda = document.getElementById('tipo-azienda');
+   const settoreBox = document.querySelector('.settore');
+   const settore = document.getElementById('settore');
+ 
+    document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+     radio.addEventListener('change', () => {
+       const isAzienda = azienda.checked;
+       settoreBox.hidden = !isAzienda;   // mostra se è azienda
+       settore.required = isAzienda;     // obbligatorio solo se è azienda
+     });
+   }); */
+ </script>
+ 
+
+</body>
+</html>

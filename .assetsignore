@@ -1,0 +1,6 @@
+.git
+.gitignore
+.DS_Store
+wrangler.jsonc
+README.md
+node_modules

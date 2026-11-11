@@ -301,7 +301,7 @@ button {
 
   h1 {
     top: 32%;
-    font-size: 150px;
+    font-size: 100px;
   }
 
   .email {
@@ -311,7 +311,7 @@ button {
   }
 
   #globe {
-    width: min(150vh, 95vw);   /* proporzionato all'altezza dello schermo */
+    width: 800px;
   }
 
   .footer {
@@ -322,19 +322,24 @@ button {
 /* SCHERMI MOLTO GRANDI (monitor 2K/4K, da 2400px in su) */
 @media (min-width: 2400px) {
   img {
-    width: 560px;
+    width: 340px;
   }
 
   h1 {
-    font-size: 200px;
+    font-size: 150px;
   }
 
   .email {
-    font-size: 26px;
+    font-size: 15px;
     padding: 30px 46px;
   }
 
   .footer {
-    font-size: 20px;
+    font-size: 12px;
   }
+  #globe{
+    width: 800px;
+
+  }
+
 }
